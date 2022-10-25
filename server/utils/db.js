@@ -1,13 +1,13 @@
-import { MongoClient } from "mongodb";
+import * as pg from 'pg';
+import dotenv from 'dotenv'
+dotenv.config()
+
+const { Pool } = pg.default;
 
 
-const connectionString = "mongodb://localhost:27017";
-
-
-export const client = new MongoClient(connectionString, {
-  useUnifiedTopology: true, 
+const pool = new Pool({
+  connectionString: `pgserver://postgres:${process.env.PG_PASSWORD}!@localhost:5432/`,
 });
 
-export const db = client.db("practice-mongo");
-
+export { pool };
 
